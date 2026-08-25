@@ -6,3 +6,4 @@ rasterio
 scikit-learn
 jupyter
 openpyxl
+whitebox
