@@ -106,11 +106,3 @@ data/processed/
 .DS_Store
 Thumbs.db
 desktop.ini
-
-# ============================================================
-# Project outputs
-# ============================================================
-
-outputs/
-results/
-figures/generated/
