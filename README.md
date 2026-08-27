@@ -179,8 +179,9 @@ These are LULC statistics only. They are not flood-susceptibility results.
 ```text
 GeoAI-Flood-Susceptibility/
 ├── data/
+│   ├── processed/
 │   ├── raw/
-│   └── final/processed/
+│   └── final
 ├── notebooks/
 ├── outputs/
 │   ├── figures/
