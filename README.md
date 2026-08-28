@@ -67,7 +67,7 @@ Project spatial processing uses UTM Zone 44N, `EPSG:32644`, unless a notebook do
 | [02 DEM and Terrain](notebooks/02_DEM_%26_Terrain.ipynb) | DEM preparation and terrain-derived variables | Complete |
 | [03 River and Hydrological Factors](notebooks/03_River_%26_Hydrological_Factors.ipynb) | River distance, drainage network, flow accumulation, and drainage density | Complete |
 | [04 Land Use and Land Cover](notebooks/04_Land_Use_Land_Cover.ipynb) | Landsat processing, spectral indices, Random Forest LULC classification, and temporal change | Complete |
-| [05 Rainfall and Soil](notebooks/05_Rainfall_%26_Soil.ipynb) | Rainfall and soil conditioning factors | Planned |
+| [05 Rainfall and Soil](notebooks/05_Rainfall_%26_Soil.ipynb) | Rainfall and soil conditioning factors | Complete |
 | [06 Feature Harmonisation](notebooks/06_Feature_Harmonization.ipynb) | Common CRS, resolution, extent, alignment, and NoData handling | Planned |
 | [07 Exploratory Analysis and Factor Selection](notebooks/07_Exploratory_Analysis_%26_Factor.ipynb) | Distributions, correlations, multicollinearity, and predictor selection | Planned |
 | [08 Flood Susceptibility Model](notebooks/08_Flood_Susceptibility_Model.ipynb) | Machine-learning susceptibility modelling | Planned |
@@ -164,6 +164,8 @@ These are LULC statistics only. They are not flood-susceptibility results.
 - [Random Forest classification reports](outputs/tables/RF_Validation/)
 - [Feature-importance tables](outputs/tables/RF_Feature_Importance/)
 - [Training samples](outputs/tables/LULC_training_samples/)
+- [CHIRPS monsoon rainfall statistics](outputs/tables/rainfall_statistics/CHIRPS_monsoon_rainfall_statistics_2003_2014_2025.csv)
+- [SoilGrids soil statistics](outputs/tables/Soil_statistics/SoilGrids_soil_statistics_0-5cm.csv)
 
 ### Figures
 
@@ -173,6 +175,15 @@ These are LULC statistics only. They are not flood-susceptibility results.
 - [Feature importance, 2003](outputs/figures/notebook_04/RF_feature_importance_2003.png)
 - [Feature importance, 2014](outputs/figures/notebook_04/RF_feature_importance_2014.png)
 - [Feature importance, 2025](outputs/figures/notebook_04/RF_feature_importance_2025.png)
+- [CHIRPS rainfall quality assessment](outputs/figures/notebook_05/CHIRPS_monsoon_rainfall_QA_2003_2014_2025.png)
+- [CHIRPS rainfall statistics](outputs/figures/notebook_05/CHIRPS_monsoon_rainfall_statistics_2003_2014_2025.png)
+- [SoilGrids clay and sand comparison](outputs/figures/notebook_05/SoilGrids_clay_sand_0-5cm_2003_2014_2025.png)
+- [SoilGrids statistical analysis](outputs/figures/notebook_05/SoilGrids_statistical_analysis_0-5cm.png)
+
+### Rainfall and Soil Rasters
+
+- [CHIRPS monsoon rainfall rasters](data/processed/notebook_05/rainfall/)
+- [SoilGrids clay and sand rasters](data/processed/notebook_05/soil/)
 
 ## Repository Structure
 
@@ -220,4 +231,4 @@ The original project concept used 2006, 2016, and 2026. The implemented Notebook
 
 ## Current Status
 
-Notebook 04 is complete and quality checked. The next implementation stage is Notebook 05, covering rainfall and soil factors.
+Notebooks 01-05 are complete and quality checked. The next implementation stage is Notebook 06, covering feature harmonisation.
