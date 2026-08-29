@@ -69,7 +69,7 @@ Project spatial processing uses UTM Zone 44N, `EPSG:32644`, unless a notebook do
 | [04 Land Use and Land Cover](notebooks/04_Land_Use_Land_Cover.ipynb) | Landsat processing, spectral indices, Random Forest LULC classification, and temporal change | Complete |
 | [05 Rainfall and Soil](notebooks/05_Rainfall_%26_Soil.ipynb) | Rainfall and soil conditioning factors | Complete |
 | [06 Feature Harmonisation](notebooks/06_Feature_Harmonization.ipynb) | Common CRS, resolution, extent, alignment, NoData handling, masking, and predictor-table generation | Complete |
-| [07 Exploratory Analysis and Factor Selection](notebooks/07_Exploratory_Analysis_%26_Factor.ipynb) | Distributions, correlations, multicollinearity, and predictor selection | Planned |
+| [07 Exploratory Analysis and Factor Selection](notebooks/07_Exploratory_Analysis_%26_Factor.ipynb) | Distributions, correlations, multicollinearity, temporal consistency, and predictor selection | Complete |
 | [08 Flood Susceptibility Model](notebooks/08_Flood_Susceptibility_Model.ipynb) | Machine-learning susceptibility modelling | Planned |
 | [09 Validation](notebooks/09_Validation.ipynb) | Independent validation and model performance assessment | Planned |
 | [10 Temporal Analysis](notebooks/10_2006-2016-2026_Analysis.ipynb) | Temporal comparison of susceptibility and conditioning factors | Planned |
@@ -125,6 +125,46 @@ The final predictor tables are saved in [data/processed/notebook_06/predictors_t
 - [predictors_2025_250m_EPSG32644.tif](data/processed/notebook_06/predictors_table/predictors_2025_250m_EPSG32644.tif)
 
 These rasters are the harmonised predictor stack inputs prepared for the next stage of exploratory analysis and modelling.
+
+## Notebook 07: Exploratory Analysis and Factor Selection (Completed)
+
+Notebook 07 completed the statistical screening phase for the harmonised 250 m predictor stack. It reviewed the distribution of continuous predictors, checked temporal consistency across 2003, 2014, and 2025, quantified pairwise relationships with Pearson correlation, and assessed multicollinearity using VIF diagnostics to support the final model-ready predictor set.
+
+### Notebook 07 workflow
+
+- Inspect distribution shapes for elevation, slope, river distance, flow accumulation, drainage density, rainfall, clay, and sand.
+- Compute year-specific Pearson correlation matrices for the candidate predictors.
+- Evaluate multicollinearity using VIF across the static and dynamic predictor sets.
+- Compare rainfall and static-predictor temporal consistency across the three study years.
+- Save a final summary of the model-eligible predictor dataset used for downstream susceptibility modelling.
+
+### Notebook 07 outputs and save locations
+
+#### Figures
+
+- [Pearson correlation matrix, 2003](outputs/figures/notebook_07/correlation/pearson_correlation_2003.png)
+- [Pearson correlation matrix, 2014](outputs/figures/notebook_07/correlation/pearson_correlation_2014.png)
+- [Pearson correlation matrix, 2025](outputs/figures/notebook_07/correlation/pearson_correlation_2025.png)
+- [Static predictor correlation matrix](outputs/figures/notebook_07/correlation/static_predictor_pearson_correlation.png)
+- [Elevation distribution](outputs/figures/notebook_07/distributions/Elevation_distribution.png)
+- [Slope distribution](outputs/figures/notebook_07/distributions/Slope_distribution.png)
+- [River distance distribution](outputs/figures/notebook_07/distributions/River_Distance_distribution.png)
+- [Flow accumulation distribution](outputs/figures/notebook_07/distributions/Flow_Accumulation_distribution.png)
+- [Drainage density distribution](outputs/figures/notebook_07/distributions/Drainage_Density_distribution.png)
+- [Rainfall distribution, 2003-2025](outputs/figures/notebook_07/distributions/Rainfall_distribution_2003_2014_2025.png)
+
+#### Tables
+
+- [Continuous predictor descriptive statistics](outputs/tables/notebook_07/continuous_predictor_descriptive_statistics_2003_2014_2025.csv)
+- [Multicollinearity summary](outputs/tables/notebook_07/diagnostics/predictor_relationship_multicollinearity_summary.csv)
+- [VIF diagnostics, 2003](outputs/tables/notebook_07/vif/predictor_vif_2003.csv)
+- [VIF diagnostics, 2014](outputs/tables/notebook_07/vif/predictor_vif_2014.csv)
+- [VIF diagnostics, 2025](outputs/tables/notebook_07/vif/predictor_vif_2025.csv)
+- [Static predictor VIF diagnostics](outputs/tables/notebook_07/vif/static_predictor_vif.csv)
+- [Rainfall temporal consistency](outputs/tables/notebook_07/temporal_consistency/rainfall_temporal_consistency.csv)
+- [Final predictor dataset summary](outputs/tables/notebook_07/final_summary/final_predictor_dataset_summary.csv)
+
+These outputs mark Notebook 07 as the completed exploratory-analysis checkpoint that prepared the final predictor set for model calibration.
 
 ## Notebook 04: LULC Analysis
 
@@ -230,6 +270,11 @@ These are LULC statistics only. They are not flood-susceptibility results.
 - [CHIRPS rainfall statistics](outputs/figures/notebook_05/CHIRPS_monsoon_rainfall_statistics_2003_2014_2025.png)
 - [SoilGrids clay and sand comparison](outputs/figures/notebook_05/SoilGrids_clay_sand_0-5cm_2003_2014_2025.png)
 - [SoilGrids statistical analysis](outputs/figures/notebook_05/SoilGrids_statistical_analysis_0-5cm.png)
+- [Notebook 07 Pearson correlation, 2003](outputs/figures/notebook_07/correlation/pearson_correlation_2003.png)
+- [Notebook 07 Pearson correlation, 2014](outputs/figures/notebook_07/correlation/pearson_correlation_2014.png)
+- [Notebook 07 Pearson correlation, 2025](outputs/figures/notebook_07/correlation/pearson_correlation_2025.png)
+- [Notebook 07 static predictor correlation](outputs/figures/notebook_07/correlation/static_predictor_pearson_correlation.png)
+- [Notebook 07 distribution overview](outputs/figures/notebook_07/distributions/Rainfall_distribution_2003_2014_2025.png)
 
 ### Rainfall and Soil Rasters
 
