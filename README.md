@@ -68,16 +68,67 @@ Project spatial processing uses UTM Zone 44N, `EPSG:32644`, unless a notebook do
 | [03 River and Hydrological Factors](notebooks/03_River_%26_Hydrological_Factors.ipynb) | River distance, drainage network, flow accumulation, and drainage density | Complete |
 | [04 Land Use and Land Cover](notebooks/04_Land_Use_Land_Cover.ipynb) | Landsat processing, spectral indices, Random Forest LULC classification, and temporal change | Complete |
 | [05 Rainfall and Soil](notebooks/05_Rainfall_%26_Soil.ipynb) | Rainfall and soil conditioning factors | Complete |
-| [06 Feature Harmonisation](notebooks/06_Feature_Harmonization.ipynb) | Common CRS, resolution, extent, alignment, and NoData handling | Planned |
+| [06 Feature Harmonisation](notebooks/06_Feature_Harmonization.ipynb) | Common CRS, resolution, extent, alignment, NoData handling, masking, and predictor-table generation | Complete |
 | [07 Exploratory Analysis and Factor Selection](notebooks/07_Exploratory_Analysis_%26_Factor.ipynb) | Distributions, correlations, multicollinearity, and predictor selection | Planned |
 | [08 Flood Susceptibility Model](notebooks/08_Flood_Susceptibility_Model.ipynb) | Machine-learning susceptibility modelling | Planned |
 | [09 Validation](notebooks/09_Validation.ipynb) | Independent validation and model performance assessment | Planned |
 | [10 Temporal Analysis](notebooks/10_2006-2016-2026_Analysis.ipynb) | Temporal comparison of susceptibility and conditioning factors | Planned |
 | [11 Final Results and Figures](notebooks/11_Final_Results_%26_Figures.ipynb) | Final maps, figures, tables, and interpretation | Planned |
 
+## Notebook 06: Feature Harmonisation (Completed)
+
+Notebook 06 is the current completed checkpoint for the model-preparation stage. It established the common 250 m modelling grid, harmonised the study predictors to the same CRS, extent, resolution, and alignment, applied the study-area mask, checked common valid-cell coverage, and generated the final year-specific predictor rasters and tables required for downstream analysis.
+
+### Notebook 06 workflow
+
+- Harmonised continuous conditioning rasters to the common 250 m grid in EPSG:32644.
+- Harmonised LULC, rainfall, and soil rasters for 2003, 2014, and 2025.
+- Masked all harmonised rasters to the Lucknow study area.
+- Verified that all masked predictors share the same spatial grid and valid-cell structure.
+- Created the final predictor tables used for later exploratory analysis and modelling.
+
+### Notebook 06 outputs and save locations
+
+#### Harmonised rasters
+
+All harmonised rasters are stored in [data/processed/notebook_06/harmonised](data/processed/notebook_06/harmonised):
+
+- Continuous predictors: [Elevation_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/Elevation_250m_EPSG32644.tif), [Slope_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/Slope_250m_EPSG32644.tif), [Flow_Accumulation_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/Flow_Accumulation_250m_EPSG32644.tif), [River_Distance_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/River_Distance_250m_EPSG32644.tif), [Drainage_Density_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/Drainage_Density_250m_EPSG32644.tif)
+- LULC rasters: [LULC_2003_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/lulc/LULC_2003_250m_EPSG32644.tif), [LULC_2014_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/lulc/LULC_2014_250m_EPSG32644.tif), [LULC_2025_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/lulc/LULC_2025_250m_EPSG32644.tif)
+- Rainfall rasters: [CHIRPS_monsoon_rainfall_2003_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/rainfall/CHIRPS_monsoon_rainfall_2003_250m_EPSG32644.tif), [CHIRPS_monsoon_rainfall_2014_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/rainfall/CHIRPS_monsoon_rainfall_2014_250m_EPSG32644.tif), [CHIRPS_monsoon_rainfall_2025_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/rainfall/CHIRPS_monsoon_rainfall_2025_250m_EPSG32644.tif)
+- Soil rasters: [Clay_0-5cm_percent_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/soil/Clay_0-5cm_percent_250m_EPSG32644.tif), [Sand_0-5cm_percent_250m_EPSG32644.tif](data/processed/notebook_06/harmonised/soil/Sand_0-5cm_percent_250m_EPSG32644.tif)
+
+#### Masked rasters
+
+The study-area masked predictor rasters are stored in [data/processed/notebook_06/masked](data/processed/notebook_06/masked):
+
+- [Elevation_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Elevation_250m_EPSG32644_masked.tif)
+- [Slope_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Slope_250m_EPSG32644_masked.tif)
+- [Flow_Accumulation_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Flow_Accumulation_250m_EPSG32644_masked.tif)
+- [River_Distance_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/River_Distance_250m_EPSG32644_masked.tif)
+- [Drainage_Density_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Drainage_Density_250m_EPSG32644_masked.tif)
+- [Clay_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Clay_250m_EPSG32644_masked.tif)
+- [Sand_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Sand_250m_EPSG32644_masked.tif)
+- [LULC_2003_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/LULC_2003_250m_EPSG32644_masked.tif)
+- [LULC_2014_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/LULC_2014_250m_EPSG32644_masked.tif)
+- [LULC_2025_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/LULC_2025_250m_EPSG32644_masked.tif)
+- [Rainfall_2003_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Rainfall_2003_250m_EPSG32644_masked.tif)
+- [Rainfall_2014_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Rainfall_2014_250m_EPSG32644_masked.tif)
+- [Rainfall_2025_250m_EPSG32644_masked.tif](data/processed/notebook_06/masked/Rainfall_2025_250m_EPSG32644_masked.tif)
+
+#### Predictor tables
+
+The final predictor tables are saved in [data/processed/notebook_06/predictors_table](data/processed/notebook_06/predictors_table):
+
+- [predictors_2003_250m_EPSG32644.tif](data/processed/notebook_06/predictors_table/predictors_2003_250m_EPSG32644.tif)
+- [predictors_2014_250m_EPSG32644.tif](data/processed/notebook_06/predictors_table/predictors_2014_250m_EPSG32644.tif)
+- [predictors_2025_250m_EPSG32644.tif](data/processed/notebook_06/predictors_table/predictors_2025_250m_EPSG32644.tif)
+
+These rasters are the harmonised predictor stack inputs prepared for the next stage of exploratory analysis and modelling.
+
 ## Notebook 04: LULC Analysis
 
-Notebook 04 is the current completed checkpoint. It processes Landsat Collection 2 Level-2 imagery for:
+Notebook 04 processed Landsat Collection 2 Level-2 imagery for:
 
 - 2003: Landsat 7 ETM+
 - 2014: Landsat 8 OLI
@@ -231,4 +282,6 @@ The original project concept used 2006, 2016, and 2026. The implemented Notebook
 
 ## Current Status
 
-Notebooks 01-05 are complete and quality checked. The next implementation stage is Notebook 06, covering feature harmonisation.
+Notebooks 01-06 are complete and quality checked. Notebook 06 established the common 250 m modelling grid, harmonised the predictor rasters to a consistent study-area grid in EPSG:32644, applied the study-area mask, assessed common valid-cell coverage, and generated the final predictor stacks for 2003, 2014, and 2025.
+
+The completed Notebook 06 .tif files are saved under [data/processed/notebook_06/](data/processed/notebook_06/), with subfolders for harmonised rasters, masked rasters, and predictor tables, and figures are saved under [outputs/figures/notebook_06/](outputs/figures/notebook_06/). The next implementation stage is Notebook 07, covering exploratory analysis and predictor relationships.
