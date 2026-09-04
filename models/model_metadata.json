@@ -1,0 +1,182 @@
+{
+    "project": "GeoAI Flood Susceptibility",
+    "study_area": "Lucknow and 20 km study region, Gomti River focus",
+    "modelling_years": [
+        2003,
+        2025
+    ],
+    "models": {
+        "random_forest": {
+            "role": "Primary susceptibility model",
+            "algorithm": "sklearn RandomForestClassifier",
+            "selected_parameters": {
+                "2003": {
+                    "n_estimators": 400,
+                    "max_depth": 20,
+                    "min_samples_split": 2,
+                    "min_samples_leaf": 5,
+                    "max_features": "sqrt",
+                    "class_weight": "balanced",
+                    "random_state": 42
+                },
+                "2025": {
+                    "n_estimators": 600,
+                    "max_depth": null,
+                    "min_samples_split": 2,
+                    "min_samples_leaf": 5,
+                    "max_features": "sqrt",
+                    "class_weight": "balanced",
+                    "random_state": 42
+                }
+            }
+        },
+        "xgboost": {
+            "role": "Secondary comparison model",
+            "algorithm": "XGBoost",
+            "selected_parameters": {
+                "2003": {
+                    "n_estimators": 400,
+                    "max_depth": 9,
+                    "learning_rate": 0.03,
+                    "min_child_weight": 5,
+                    "subsample": 0.8,
+                    "colsample_bytree": 0.8
+                },
+                "2025": {
+                    "n_estimators": 200,
+                    "max_depth": 3,
+                    "learning_rate": 0.05,
+                    "min_child_weight": 5,
+                    "subsample": 0.8,
+                    "colsample_bytree": 0.8
+                }
+            }
+        }
+    },
+    "predictor_information": {
+        "predictors": [
+            "Elevation",
+            "Slope",
+            "Flow_Accumulation",
+            "River_Distance",
+            "Drainage_Density",
+            "Clay",
+            "Sand",
+            "Rainfall",
+            "LULC"
+        ],
+        "predictor_count": 9,
+        "target": "Flood",
+        "target_encoding": {
+            "0": "Non-flood",
+            "1": "Flood"
+        }
+    },
+    "training_information": {
+        "2003": {
+            "total_labelled_cells": 47523,
+            "flood_cells": 99,
+            "non_flood_cells": 47424,
+            "class_ratio_nonflood_to_flood": 479.030303030303
+        },
+        "2025": {
+            "total_labelled_cells": 43076,
+            "flood_cells": 1018,
+            "non_flood_cells": 42058,
+            "class_ratio_nonflood_to_flood": 41.31434184675835
+        }
+    },
+    "spatial_validation": {
+        "validation_block_size_m": 5000,
+        "spatial_cv_folds": 3,
+        "test_region": "NW",
+        "split_method": "5 km spatial blocks",
+        "test_region_selection": "NW region selected as a geographically contiguous region containing approximately 30% of the spatial blocks and multiple positive blocks in 2003."
+    },
+    "multicollinearity": {
+        "clay_sand_pearson_r": 0.8936,
+        "clay_vif": 7.05,
+        "sand_vif": 6.94,
+        "decision": "Clay and Sand retained in the primary tree-based models because both are physically meaningful predictors. Their correlated nature should be considered when interpreting individual feature importance."
+    },
+    "model_selection": {
+        "primary_model": "Random Forest",
+        "secondary_model": "XGBoost",
+        "selection_basis": "Random Forest achieved higher PR-AUC and ROC-AUC than XGBoost on the same withheld NW spatial test region for both 2003 and 2025.",
+        "primary_metric": "PR-AUC",
+        "secondary_metric": "ROC-AUC",
+        "threshold_optimization_on_test": false,
+        "continuous_susceptibility": true
+    },
+    "evaluation_results": {
+        "2003": {
+            "random_forest": {
+                "PR_AUC": 0.0131,
+                "ROC_AUC": 0.6466,
+                "precision": 0.0,
+                "recall": 0.0,
+                "F1": 0.0,
+                "accuracy": 0.9961
+            },
+            "xgboost": {
+                "PR_AUC": 0.0064,
+                "ROC_AUC": 0.5224,
+                "precision": 0.0769,
+                "recall": 0.0465,
+                "F1": 0.058,
+                "accuracy": 0.9955
+            }
+        },
+        "2025": {
+            "random_forest": {
+                "PR_AUC": 0.1429,
+                "ROC_AUC": 0.7968,
+                "precision": 0.0956,
+                "recall": 0.0217,
+                "F1": 0.0354,
+                "accuracy": 0.9497
+            },
+            "xgboost": {
+                "PR_AUC": 0.0926,
+                "ROC_AUC": 0.6396,
+                "precision": 0.1875,
+                "recall": 0.3456,
+                "F1": 0.2431,
+                "accuracy": 0.9086
+            }
+        }
+    },
+    "susceptibility_information": {
+        "output_type": "Continuous model-derived susceptibility score",
+        "range": "[0, 1]",
+        "calibrated_probability": false,
+        "thresholding_applied": false,
+        "classification_applied": false,
+        "interpretation_note": "Random Forest scores are retained as continuous susceptibility scores. Because class weighting is used, these scores should not be interpreted as calibrated real-world flood probabilities."
+    },
+    "final_rf_mapping_diagnostics": {
+        "2003": {
+            "minimum": 0.0,
+            "maximum": 0.999513,
+            "mean": 0.006963,
+            "median": 0.0,
+            "std": 0.056504,
+            "unique_scores": 6326
+        },
+        "2025": {
+            "minimum": 0.0,
+            "maximum": 0.999718,
+            "mean": 0.078679,
+            "median": 0.024074,
+            "std": 0.168257,
+            "unique_scores": 37590
+        }
+    },
+    "software_notes": {
+        "random_state": 42,
+        "RF_parallel_processing": "n_jobs=-1",
+        "XGBoost_class_imbalance": "scale_pos_weight was calculated from the training data",
+        "test_data_used_for_training": false,
+        "test_data_used_for_threshold_tuning": false
+    }
+}
